@@ -9,12 +9,12 @@ class UserController extends Controller
 {
     public function profile() {
         $user = auth()->user()->load('skills');
-        return view('users.profile', compact('user'));
+        return view('user.users.profile', compact('user'));
     }
 
     public function edit() {
         $user = auth()->user()->load('skills');
-        return view('users.edit', compact('user'));
+        return view('user.users.edit', compact('user'));
     }
 
     public function update(Request $request) {
@@ -26,17 +26,17 @@ class UserController extends Controller
 
         $user->update($request->only('name','email'));
 
-        return redirect()->route('users.profile')->with('success', 'Perfil atualizado!');
+        return redirect()->route('user.users.profile')->with('success', 'Perfil atualizado!');
     }
 
     public function index() {
-        $users = User::where('is_admin', false)->with('skills')->paginate(10);
-        return view('users.index', compact('users'));
+        $users = User::where('role', 'user')->with('skills')->paginate(10);
+        return view('user.users.index', compact('users'));
     }
 
     public function show(User $user) {
         $user->load('skills', 'avaliacoes');
-        return view('users.show', compact('user'));
+        return view('user.users.show', compact('user'));
     }
 
     public function destroy(string $id)

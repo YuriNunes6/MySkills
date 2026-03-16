@@ -135,8 +135,8 @@
     .skill-avatar {
         width: 50px;
         height: 50px;
-        background: #eef2ff;
-        color: #6366f1;
+        background: #f6ffee;
+        color: #0d0e25;
         border-radius: 12px;
         display: flex;
         align-items: center;

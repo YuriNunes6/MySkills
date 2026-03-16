@@ -18,23 +18,13 @@ class Session extends Model
         'observacoes',
     ];
 
-    public function request()
+    public function skillRequest()
     {
-        return $this->belongsTo(Request::class);
+        return $this->belongsTo(SkillRequest::class, 'request_id');
     }
 
-    public function solicitante()
+    public function avaliacoes()
     {
-        return $this->request->solicitante();
-    }
-
-    public function destinatario()
-    {
-        return $this->request->destinatario();
-    }
-
-    public function avaliacao()
-    {
-        return $this->hasMany(Rating::class);
+        return $this->hasMany(Avaliacao::class, 'session_id');
     }
 }

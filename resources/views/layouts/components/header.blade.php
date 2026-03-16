@@ -1,14 +1,22 @@
 <header>
     <nav class="navbar">
         <div class="navbar-brand">
-            <a href="{{ route('login') }}">Troca de Habilidades</a>
+            <a href="{{ route('login') }}"><img src="{{ asset('images/MySkills-logo.png') }}" alt="myskills-logo"><h1>MySkills</h1></a>
         </div>
         <ul class="navbar-links">
             @auth
-                <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                <li><a href="{{ route('users.index') }}">Usuários</a></li>
-                <li><a href="{{ route('skills.index') }}">Habilidades</a></li>
-                <li><a href="{{ route('users.profile') }}">Meu Perfil</a></li>
+                @php $user = auth()->user(); @endphp
+
+                @if($user->role === 'admin')
+                    <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                    <li><a href="{{ route('admin.users.index') }}">Usuários</a></li>
+                    <li><a href="{{ route('admin.skills.index') }}">Skills</a></li>
+                @else
+                    <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                    <li><a href="{{ route('user.skills.index') }}">Minhas Skills</a></li>
+                    <li><a href="{{ route('sessions.index') }}">Minhas Sessões</a></li>
+                @endif
+
                 <li>
                     <form action="{{ route('logout') }}" method="POST" style="display:inline;">
                         @csrf
@@ -21,56 +29,4 @@
             @endauth
         </ul>
     </nav>
-
-    <style>
-        header {
-            background-color: #2d89ef;
-            padding: 10px 20px;
-        }
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .navbar-brand a {
-            color: #fff;
-            font-size: 20px;
-            font-weight: bold;
-            text-decoration: none;
-        }
-        .navbar-links {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            gap: 15px;
-        }
-        .navbar-links li {
-            display: flex;
-            align-items: center;
-        }
-        .navbar-links a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 5px 10px;
-            transition: background 0.3s, border-radius 0.3s;
-        }
-        .navbar-links a:hover {
-            background-color: rgba(255,255,255,0.2);
-            border-radius: 5px;
-        }
-        .btn-logout {
-            background: none;
-            border: none;
-            color: #fff;
-            font-weight: 500;
-            cursor: pointer;
-            padding: 5px 10px;
-        }
-        .btn-logout:hover {
-            background-color: rgba(255,255,255,0.2);
-            border-radius: 5px;
-        }
-    </style>
 </header>

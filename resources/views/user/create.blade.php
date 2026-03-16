@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Criar Conta - SkillSwap')
+@section('title', 'Criar Conta - MySkills')
 
 @section('content')
 <div class="auth-wrapper">
@@ -10,7 +10,7 @@
             {{-- Lado Esquerdo: Boas-vindas --}}
             <div class="auth-header">
                 <div class="brand-icon">
-                    <i class="bi bi-person-plus-fill"></i>
+                    <img src="{{ asset('images/MySkills-logo.png') }}" alt="myskills-logo">
                 </div>
                 <h1 class="auth-title">Junte-se à nossa Comunidade</h1>
                 <p class="auth-subtitle">Crie sua conta para começar a ensinar e aprender novas habilidades hoje mesmo.</p>
@@ -90,9 +90,9 @@
             {{-- Card Admin - Estilo Diferenciado --}}
             <div class="auth-footer">         
                 <div class="admin-cta">
-                    <p>Junte-se a centenas de usuários trocando habilidades.</p>
+                    <p>Conecte-se com centenas de usuários trocando habilidades.</p>
                     <a href="{{ route('login') }}" class="btn-admin-link">
-                        Criar minha conta gratuita
+                        Acessar minha conta MySkills
                     </a>
                 </div>
             </div>
@@ -124,20 +124,20 @@
 
     .auth-header {
         text-align: center;
-        margin-bottom: 35px;
+        margin-bottom: 10px;
     }
 
-    .brand-icon {
-        width: 60px;
-        height: 60px;
-        background: #eef2ff;
-        color: #4f46e5;
-        border-radius: 15px;
+    .brand-icon{
         display: flex;
-        align-items: center;
         justify-content: center;
-        font-size: 1.8rem;
-        margin: 0 auto 20px;
+        margin-bottom: 10px;
+    }
+
+    .brand-icon img {
+        width: 100%;
+        max-width: 120px;
+        height: auto;
+        display: block;
     }
 
     .auth-title { font-size: 1.8rem; font-weight: 800; color: #1f2937; margin-bottom: 10px; }
@@ -260,6 +260,8 @@
         align-items: center;
         justify-content: space-between;
     }
+
+    .auth-footer a { margin-left: 36px; }
 
     .admin-cta h5 { font-size: 0.95rem; font-weight: 700; margin: 0; color: #1e293b; }
     

@@ -9,21 +9,20 @@ class SessionController extends Controller
 {
     public function index()
     {
-        $sessions = Session::with('request.solicitante', 'request.destinatario', 'request.skill')
-            ->whereHas('request', function($q) {
-                $q->where('solicitante_id', Auth::id())
-                  ->orWhere('destinatario_id', Auth::id());
+       $sessions = Session::with(['skillRequest.fromUser', 'skillRequest.toUser', 'skillRequest.skillOffer', 'skillRequest.skillWanted'])
+            ->whereHas('skillRequest', function($q) {
+                $q->where('from_user_id', Auth::id())
+                ->orWhere('to_user_id', Auth::id());
             })
             ->paginate(10);
-
-        return view('sessions.index', compact('sessions'));
+        return view('user.sessions.index', compact('sessions'));
     }
 
     public function conclude($id)
     {
-        $session = Session::with('request')->findOrFail($id);
+        $session = Session::with('skillRequest')->findOrFail($id);
 
-        if ($session->request->solicitante_id !== Auth::id() && $session->request->destinatario_id !== Auth::id()) {
+        if ($session->skillRequest->from_user_id !== Auth::id() && $session->skillRequest->to_user_id !== Auth::id()) {
             abort(403);
         }
 

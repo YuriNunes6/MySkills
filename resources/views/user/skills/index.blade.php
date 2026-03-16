@@ -58,7 +58,7 @@
                     </div>
                     <h3>Você ainda não listou suas habilidades</h3>
                     <p>Adicione skills ao seu perfil para que outros usuários possam encontrar você para trocas de conhecimento.</p>
-                    <a href="{{ route('user.skills.edit') }}" class="btn-primary-gradient mt-3">Começar agora</a>
+                    <a href="{{ route('user.skills.edit_skills') }}" class="btn-primary-gradient mt-3">Começar agora</a>
                 </div>
             @endforelse
         </div>

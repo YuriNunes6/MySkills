@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Dashboard Admin')
+@section('title', 'MySkills')
 
 @section('content')
 <div class="admin-wrapper">
@@ -29,7 +29,7 @@
                 <div class="card-content">
                     <h3>Usuários</h3>
                     <p>Visualize, edite perfis ou remova usuários comuns da plataforma.</p>
-                    <a href="{{ route('admin.users.index') }}" class="admin-link">Gerenciar Membros</a>
+                    <a href="{{ route('admin.users.index') }}" class="admin-link">Gerenciar Usuários</a>
                 </div>
             </div>
 

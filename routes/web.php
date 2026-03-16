@@ -3,12 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SkillController;
-use App\Http\Controllers\RequestController;
+use App\Http\Controllers\SkillRequestController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\AvaliacaoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\User\SkillController as UserSkillController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,13 +27,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/cadastro', [AuthController::class, 'showCadastro'])->name('cadastro');
 Route::post('/cadastro', [AuthController::class, 'cadastroSubmit'])->name('cadastro.submit');
 
-
 /*
 |--------------------------------------------------------------------------
 | ÁREA DE USUÁRIO LOGADO
 |--------------------------------------------------------------------------
 */
-
 Route::middleware(['auth'])->group(function () {
 
     // Dashboard usuário comum
@@ -50,11 +49,10 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/meu-perfil/editar', [UserController::class, 'update'])->name('users.update');
 
     // Requests
-    Route::get('requests/create', [RequestController::class,'create'])
-    ->name('requests.create');
-    Route::post('requests', [RequestController::class,'store'])->name('requests.store');
-    Route::post('requests/{id}/accept', [RequestController::class,'accept'])->name('requests.accept');
-    Route::post('requests/{id}/reject', [RequestController::class,'reject'])->name('requests.reject');
+    Route::get('skill-requests/create', [SkillRequestController::class,'create'])->name('skill-requests.create');
+    Route::post('skill-requests', [SkillRequestController::class,'store'])->name('skill-requests.store');
+    Route::post('skill-requests/{id}/accept', [SkillRequestController::class,'accept'])->name('skill-requests.accept');
+    Route::post('skill-requests/{id}/reject', [SkillRequestController::class,'reject'])->name('skill-requests.reject');
 
     // Sessões
     Route::get('sessions', [SessionController::class,'index'])->name('sessions.index');
@@ -65,22 +63,20 @@ Route::middleware(['auth'])->group(function () {
     Route::get('avaliacoes/create', [AvaliacaoController::class,'create'])->name('avaliacoes.create');
     Route::post('avaliacoes', [AvaliacaoController::class,'store'])->name('avaliacoes.store');
 
-    // Skills (visualização)
-    Route::middleware(['auth'])->prefix('user')->name('user.')->group(function() {
-    Route::get('skills', [App\Http\Controllers\User\SkillController::class,'index'])->name('skills.index');
-    Route::get('skills/edit', [UserSkillController::class, 'edit'])
-    ->name('skills.edit');
-    Route::put('skills/edit', [UserSkillController::class, 'update'])->name('skills.update');
+    // Skills (visualização e edição)
+    Route::prefix('user')->name('user.')->group(function() {
+        Route::get('skills', [UserSkillController::class,'index'])->name('skills.index');
+        Route::get('skills/edit', [UserSkillController::class, 'edit'])->name('skills.edit');
+        Route::put('skills/edit', [UserSkillController::class, 'update'])->name('skills.update');
     });
-});
 
+});
 
 /*
 |--------------------------------------------------------------------------
 | ÁREA ADMIN
 |--------------------------------------------------------------------------
 */
-
 Route::middleware(['auth','admin'])
     ->prefix('admin')
     ->name('admin.')
@@ -91,14 +87,10 @@ Route::middleware(['auth','admin'])
         return view('admin.dashboard');
     })->name('dashboard');
 
-    // ========================
     // Usuários (admin)
-    // ========================
     Route::get('users', [UserController::class,'index'])->name('users.index');
 
-    // ========================
     // Skills
-    // ========================
     Route::get('skills', [SkillController::class,'index'])->name('skills.index');
     Route::get('skills/create',[SkillController::class,'create'])->name('skills.create');
     Route::post('skills',[SkillController::class,'store'])->name('skills.store');
@@ -106,9 +98,7 @@ Route::middleware(['auth','admin'])
     Route::put('skills/{skill}',[SkillController::class,'update'])->name('skills.update');
     Route::delete('skills/{skill}',[SkillController::class,'destroy'])->name('skills.destroy');
 
-    // ========================
     // Admins
-    // ========================
     Route::get('admins', [AdminController::class,'index'])->name('admins.index');
     Route::get('admins/create', [AdminController::class,'showCreate'])->name('admins.create');
     Route::post('admins/create', [AdminController::class,'store'])->name('admins.store');

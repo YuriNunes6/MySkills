@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('sessions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('request_id')->constrained('requests')->onDelete('cascade');
+            $table->foreignId('request_id')->constrained('skill_requests')->onDelete('cascade');
             $table->date('data_sessao');
             $table->time('start_time');
             $table->time('end_time');

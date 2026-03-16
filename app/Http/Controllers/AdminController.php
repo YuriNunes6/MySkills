@@ -9,7 +9,7 @@ class AdminController extends Controller
 {
     public function showCreate()
     {
-        return view('admins.create');
+        return view('admin.admins.create');
     }
 
     public function store(Request $request)
@@ -24,21 +24,21 @@ class AdminController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'is_admin' => true,
+            'role' => 'admin',
         ]);
 
-        return redirect()->route('admins.index')->with('success', 'Admin criado com sucesso!');
+        return redirect()->route('admin.admins.index')->with('success', 'Admin criado com sucesso!');
     }
 
     public function index()
     {
-        $admins = User::where('is_admin', true)->paginate(10);
-        return view('admins.index', compact('admins'));
+        $admins = User::where('role', 'admin')->paginate(10);
+        return view('admin.admins.index', compact('admins'));
     }
 
     public function edit(User $admin)
     {
-        return view('admins.edit', compact('admin'));
+        return view('admin.admins.edit', compact('admin'));
     }
 
     public function update(Request $request, User $admin)
@@ -50,7 +50,7 @@ class AdminController extends Controller
 
         $admin->update($request->only('name', 'email'));
 
-        return redirect()->route('admins.index')->with('success', 'Admin atualizado com sucesso!');
+        return redirect()->route('admin.admins.index')->with('success', 'Admin atualizado com sucesso!');
     }
 
     public function destroy(User $admin)
@@ -59,6 +59,6 @@ class AdminController extends Controller
             return back()->with('error', 'Você não pode deletar seu próprio usuário.');
         }
         $admin->delete();
-        return redirect()->route('admins.index')->with('success', 'Admin removido com sucesso!');
+        return redirect()->route('admin.admins.index')->with('success', 'Admin removido com sucesso!');
     }
 }

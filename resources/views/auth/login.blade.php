@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Login - SkillSwap')
+@section('title', 'MySkills')
 
 @section('content')
 <div class="auth-wrapper">
@@ -10,10 +10,10 @@
             {{-- Header de Login --}}
             <div class="auth-header">
                 <div class="brand-logo">
-                    <i class="bi bi-shield-lock"></i>
+                    <img src="{{ asset('images/MySkills-logo.png') }}" alt="myskills-logo">
                 </div>
-                <h1 class="auth-title">Bem-vindo de volta!</h1>
-                <p class="auth-subtitle">Acesse sua conta para continuar suas trocas de conhecimento.</p>
+                <h1 class="auth-title">Bem-vindo!</h1>
+                <p class="auth-subtitle">Acesse sua conta e conecte-se com pessoas para trocar habilidades.</p>
             </div>
 
             {{-- Mensagens de Erro/Validação --}}
@@ -55,7 +55,7 @@
                     <div class="input-icon-wrapper">
                         <i class="bi bi-key"></i>
                         <input type="password" name="password" id="password" 
-                               placeholder="Sua senha secreta" required>
+                               placeholder="Informe a sua senha..." required>
                     </div>
                 </div>
 
@@ -112,18 +112,17 @@
         margin-bottom: 35px;
     }
 
-    .brand-logo {
-        width: 64px;
-        height: 64px;
-        background: #1e293b;
-        color: white;
-        border-radius: 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 2rem;
-        margin: 0 auto 20px;
-        box-shadow: 0 8px 15px rgba(30, 41, 59, 0.2);
+    .brand-logo{
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .brand-logo img{
+        width: 100%;
+        max-width: 120px;
+        height: auto;
+        display: block;
+        margin: 0 auto;
     }
 
     .auth-title {
