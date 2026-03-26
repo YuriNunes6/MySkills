@@ -26,8 +26,16 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Cadastro
 Route::get('/cadastro', [AuthController::class, 'showCadastro'])->name('cadastro');
 Route::post('/cadastro', [AuthController::class, 'cadastroSubmit'])->name('cadastro.submit');
+ // Páagina de esqueci minha senha
+
+Route::get('/forgot-password', [AuthController::class, 'showForgotPassword'])->name('password.request');
+Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->name('password.email');
+Route::get('/reset-password/{token}', [AuthController::class, 'showResetPassword'])->name('password.reset');
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
+
 
 /*
+
 |--------------------------------------------------------------------------
 | ÁREA DE USUÁRIO LOGADO
 |--------------------------------------------------------------------------

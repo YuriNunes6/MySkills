@@ -1,20 +1,33 @@
 @extends('layouts.app')
 
-@section('title', 'MySkills')
+@section('title', 'MySkills - Recuperar Senha')
 
 @section('content')
 <div class="auth-wrapper">
     <div class="container-custom">
         <div class="auth-card">
-            
-            {{-- Header de Login --}}
+
+            {{-- Header --}}
             <div class="auth-header">
                 <div class="brand-logo">
                     <img src="{{ asset('images/MySkills-logo.png') }}" alt="myskills-logo">
                 </div>
-                <h1 class="auth-title">Bem-vindo!</h1>
-                <p class="auth-subtitle">Acesse sua conta e conecte-se com pessoas para trocar habilidades.</p>
+                <div class="icon-circle">
+                    <i class="bi bi-shield-lock"></i>
+                </div>
+                <h1 class="auth-title">Recuperar Senha</h1>
+                <p class="auth-subtitle">Informe seu e-mail cadastrado e enviaremos um link para você criar uma nova senha.</p>
             </div>
+
+            {{-- Mensagem de Sucesso --}}
+            @if(session('status'))
+                <div class="alert-custom success">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <span>{{ session('status') }}</span>
+                    </div>
+                </div>
+            @endif
 
             {{-- Mensagens de Erro/Validação --}}
             @if(session('error') || $errors->any())
@@ -34,48 +47,33 @@
                 </div>
             @endif
 
-            {{-- Formulário de Login --}}
-            <form class="form-grid" method="POST" action="{{ route('login.submit') }}">
+            {{-- Formulário de Recuperação --}}
+            <form class="form-grid" method="POST" action="{{ route('password.email') }}">
                 @csrf
 
                 <div class="input-group-custom">
-                    <label for="email">E-mail</label>
+                    <label for="email">E-mail cadastrado</label>
                     <div class="input-icon-wrapper">
                         <i class="bi bi-envelope"></i>
-                        <input type="email" name="email" id="email" 
-                               placeholder="exemplo@gmail.com" 
+                        <input type="email" name="email" id="email"
+                               placeholder="exemplo@gmail.com"
                                value="{{ old('email') }}" required autofocus>
                     </div>
                 </div>
 
-                <div class="input-group-custom">
-                    {{--  adicionado o link "Esqueceu a senha?" --}}
-                    <div class="d-flex justify-content-between">
-                        <label for="password">Senha</label>
-                        <a href="{{ route('password.request') }}" class="btn-register-link">
-                            Esqueceu a senha?
-                        </a>
-                    </div>
-                    <div class="input-icon-wrapper">
-                        <i class="bi bi-key"></i>
-                        <input type="password" name="password" id="password" 
-                               placeholder="Informe a sua senha..." required>
-                    </div>
-                </div>
-
                 <button type="submit" class="btn-login-main">
-                    Entrar na Plataforma <i class="bi bi-box-arrow-in-right"></i>
+                    Enviar link de recuperação <i class="bi bi-send"></i>
                 </button>
             </form>
 
-            {{-- Rodapé de Cadastro --}}
+            {{-- Rodapé --}}
             <div class="auth-footer">
-                <div class="divider"><span>Ainda não tem conta?</span></div>
-                
+                <div class="divider"><span>Lembrou a senha?</span></div>
+
                 <div class="register-cta">
-                    <p>Junte-se a centenas de usuários trocando habilidades.</p>
-                    <a href="{{ route('cadastro') }}" class="btn-register-link">
-                        Criar minha conta gratuita
+                    <p>Volte para a tela de login e acesse sua conta.</p>
+                    <a href="{{ route('login') }}" class="btn-register-link">
+                        <i class="bi bi-arrow-left"></i> Voltar para o Login
                     </a>
                 </div>
             </div>
@@ -116,17 +114,35 @@
         margin-bottom: 35px;
     }
 
-    .brand-logo{
+    .brand-logo {
         display: block;
         margin-bottom: 10px;
     }
 
-    .brand-logo img{
+    .brand-logo img {
         width: 100%;
         max-width: 120px;
         height: auto;
         display: block;
         margin: 0 auto;
+    }
+
+    /* Ícone central de cadeado */
+    .icon-circle {
+        width: 64px;
+        height: 64px;
+        background: #eef4fd;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 16px auto 20px;
+        border: 2px solid #c7daf5;
+    }
+
+    .icon-circle i {
+        font-size: 1.7rem;
+        color: #1b5fa7;
     }
 
     .auth-title {
@@ -142,7 +158,7 @@
         line-height: 1.5;
     }
 
-    /* Formulário - Distância entre campos */
+    /* Formulário */
     .form-grid {
         display: flex;
         flex-direction: column;
@@ -213,7 +229,7 @@
         box-shadow: 0 5px 15px rgba(27, 95, 167, 0.3);
     }
 
-    /* Rodapé e Link de Registro */
+    /* Rodapé e Link */
     .auth-footer {
         margin-top: 35px;
         text-align: center;
@@ -252,6 +268,9 @@
         font-weight: 700;
         font-size: 0.95rem;
         transition: color 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
     }
 
     .btn-register-link:hover {
@@ -274,6 +293,12 @@
         background: #fff1f2;
         color: #991b1b;
         border: 1px solid #fecaca;
+    }
+
+    .alert-custom.success {
+        background: #f0fdf4;
+        color: #166534;
+        border: 1px solid #bbf7d0;
     }
 
     /* Responsividade */
