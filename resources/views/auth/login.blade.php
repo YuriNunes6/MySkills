@@ -49,8 +49,7 @@
                 </div>
 
                 <div class="input-group-custom">
-                    {{--  adicionado o link "Esqueceu a senha?" --}}
-                    <div class="d-flex justify-content-between">
+                    <div class="label-row">
                         <label for="password">Senha</label>
                         <a href="{{ route('password.request') }}" class="btn-register-link">
                             Esqueceu a senha?
@@ -85,7 +84,6 @@
 </div>
 
 <style>
-    /* Base e Respiro */
     .auth-wrapper {
         background-color: #f8fafc;
         min-height: 100vh;
@@ -110,18 +108,17 @@
         border: 1px solid #e2e8f0;
     }
 
-    /* Cabeçalho */
     .auth-header {
         text-align: center;
         margin-bottom: 35px;
     }
 
-    .brand-logo{
+    .brand-logo {
         display: block;
         margin-bottom: 10px;
     }
 
-    .brand-logo img{
+    .brand-logo img {
         width: 100%;
         max-width: 120px;
         height: auto;
@@ -142,7 +139,6 @@
         line-height: 1.5;
     }
 
-    /* Formulário - Distância entre campos */
     .form-grid {
         display: flex;
         flex-direction: column;
@@ -155,6 +151,18 @@
         color: #334155;
         font-size: 0.85rem;
         margin-bottom: 8px;
+    }
+
+    /* ✅ CORREÇÃO - label e link na mesma linha */
+    .label-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+
+    .label-row label {
+        margin-bottom: 0;
     }
 
     .input-icon-wrapper {
@@ -182,14 +190,13 @@
         background: #fcfdfe;
     }
 
-    .input-icon-wrapper input:focus {
-        outline: none;
-        border-color: #1b5fa7;
-        background: white;
-        box-shadow: 0 0 0 4px rgba(27, 95, 167, 0.1);
+   .input-icon-wrapper input {
+    width: 100%;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-left: 45px;
     }
 
-    /* Botão Principal */
     .btn-login-main {
         background: #1b5fa7;
         color: white;
@@ -213,7 +220,6 @@
         box-shadow: 0 5px 15px rgba(27, 95, 167, 0.3);
     }
 
-    /* Rodapé e Link de Registro */
     .auth-footer {
         margin-top: 35px;
         text-align: center;
@@ -259,7 +265,6 @@
         text-decoration: underline;
     }
 
-    /* Alertas */
     .alert-custom {
         display: flex;
         gap: 12px;
@@ -276,7 +281,6 @@
         border: 1px solid #fecaca;
     }
 
-    /* Responsividade */
     @media (max-width: 480px) {
         .auth-card {
             padding: 30px 20px;
