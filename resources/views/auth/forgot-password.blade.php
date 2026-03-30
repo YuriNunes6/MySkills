@@ -57,7 +57,9 @@
                         <i class="bi bi-envelope"></i>
                         <input type="email" name="email" id="email"
                                placeholder="exemplo@gmail.com"
-                               value="{{ old('email') }}" required autofocus>
+                               value="{{ old('email') }}" 
+                               required autofocus
+                               class="@error('email') is-invalid @enderror">
                     </div>
                 </div>
 
@@ -114,20 +116,14 @@
         margin-bottom: 35px;
     }
 
-    .brand-logo {
-        display: block;
-        margin-bottom: 10px;
-    }
-
     .brand-logo img {
         width: 100%;
         max-width: 120px;
         height: auto;
         display: block;
-        margin: 0 auto;
+        margin: 0 auto 10px;
     }
 
-    /* Ícone central de cadeado */
     .icon-circle {
         width: 64px;
         height: 64px;
@@ -158,7 +154,7 @@
         line-height: 1.5;
     }
 
-    /* Formulário */
+    /* Formulário e Inputs Corrigidos */
     .form-grid {
         display: flex;
         flex-direction: column;
@@ -184,18 +180,19 @@
         transform: translateY(-50%);
         color: #94a3b8;
         font-size: 1.1rem;
+        pointer-events: none; /* Impede que o ícone intercepte o clique */
+        z-index: 2;
     }
 
     .input-icon-wrapper input {
         width: 100%;
-        padding-top: 16px;
-        padding-bottom: 16px;
-        padding-left: 14px;
+        padding: 16px 16px 16px 48px; 
         border: 2px solid #e2e8f0;
         border-radius: 12px;
         font-size: 1rem;
         transition: all 0.2s ease;
         background: #fcfdfe;
+        display: block;
     }
 
     .input-icon-wrapper input:focus {
@@ -203,6 +200,12 @@
         border-color: #1b5fa7;
         background: white;
         box-shadow: 0 0 0 4px rgba(27, 95, 167, 0.1);
+    }
+
+    /* Estilo para erro de validação */
+    .input-icon-wrapper input.is-invalid {
+        border-color: #ef4444;
+        background-color: #fef2f2;
     }
 
     /* Botão Principal */

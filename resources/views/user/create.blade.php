@@ -182,7 +182,7 @@
         width: 100%;
         padding-top: 16px;
         padding-bottom: 16px;
-        padding-left: 14px;
+        padding-left: 38px;
         border: 2px solid #e5e7eb;
         border-radius: 12px;
         font-size: 1rem;
