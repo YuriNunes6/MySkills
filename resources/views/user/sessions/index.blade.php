@@ -3,6 +3,7 @@
 @section('title', 'Minhas Sessões')
 
 @section('content')
+
 <div class="user-wrapper">
     <div class="container-custom">
 

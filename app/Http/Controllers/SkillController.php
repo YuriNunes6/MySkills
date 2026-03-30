@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Skill;
+use App\Services\SkillService;
 
 class SkillController extends Controller
 {
@@ -18,13 +19,16 @@ class SkillController extends Controller
         return view('admin.skills.create');
     }
 
-    public function store(Request $request)
+    public function store(Request $request, SkillService $skillService)
     {
         $request->validate([
             'name' => 'required|string|max:255|unique:skills,name',
         ]);
 
-        Skill::create(['name' => $request->name]);
+        Skill::create([
+            'name' => $request->name,
+            'icon' => $skillService->getIconByName($request->name),
+        ]);
 
         return redirect()->route('admin.skills.index')->with('success', 'Habilidade criada!');
     }
@@ -35,7 +39,7 @@ class SkillController extends Controller
         return view('admin.skills.edit', compact('skill'));
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id, SkillService $skillService)
     {
         $skill = Skill::findOrFail($id);
 
@@ -43,7 +47,10 @@ class SkillController extends Controller
             'name' => 'required|string|max:255|unique:skills,name,' . $skill->id,
         ]);
 
-        $skill->update(['name' => $request->name]);
+        $skill->update([
+            'name' => $request->name,
+            'icon' => $skillService->getIconByName($request->name),
+        ]);
 
         return redirect()->route('admin.skills.index')->with('success', 'Habilidade atualizada!');
     }
